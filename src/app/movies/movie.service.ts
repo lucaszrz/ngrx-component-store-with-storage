@@ -46,25 +46,28 @@ export class MovieService {
   updateMovie(updatedMovie: Movie): Observable<Movie[]> {
     return this.getMovies().pipe(
       map((movies) => {
-        this.storageService.set<Movie[]>(
-          this.storageKey,
-          movies.map((movie) =>
-            movie.id === updatedMovie.id ? updatedMovie : movie,
-          ),
+        const updatedMovies: Movie[] = movies.map((movie) =>
+          movie.id === updatedMovie.id ? updatedMovie : movie,
         );
 
-        return movies;
+        this.storageService.set<Movie[]>(this.storageKey, updatedMovies);
+
+        return updatedMovies;
       }),
     );
   }
 
-  deleteMovie(id: string): Observable<void> {
+  deleteMovie(id: string): Observable<Movie[]> {
     return this.getMovies().pipe(
-      map((movies) => movies.filter((movie) => movie.id !== id)),
-      tap((movies) =>
-        this.storageService.set<Movie[]>(this.storageKey, movies),
-      ),
-      switchMap(() => EMPTY),
+      map((movies) => {
+        const filteredMovies: Movie[] = movies.filter(
+          (movie) => movie.id !== id,
+        );
+
+        this.storageService.set<Movie[]>(this.storageKey, filteredMovies);
+
+        return filteredMovies;
+      }),
     );
   }
 }

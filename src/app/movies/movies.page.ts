@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   IonButton,
@@ -50,7 +50,7 @@ import { Movie, MoviesStore } from './movies.store';
   ],
   providers: [MoviesStore, StorageService],
 })
-export class MoviesPage {
+export class MoviesPage implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
 
   public name: string = '';
@@ -58,7 +58,9 @@ export class MoviesPage {
 
   constructor(protected readonly movieStore: MoviesStore) {
     addIcons({ add, trash, pencil });
+  }
 
+  public ngOnInit(): void {
     this.movieStore.loadMovies();
   }
 
@@ -69,13 +71,22 @@ export class MoviesPage {
     this.modal.present().then();
   }
 
-  updateMovie(movie: Movie) {
-    this.movieStore.updateMovie(movie);
+  addMovie(title: string) {
+    this.movieStore.addMovieEffect(title);
+  }
+
+  updateMovie(title: string) {
+    const movie: Movie = {
+      ...(this.itemBeingUpdated as Movie),
+      name: title,
+    };
+
+    this.movieStore.updateMovieEffect(movie);
     this.itemBeingUpdated = null;
   }
 
   deleteMovie(id: string) {
-    this.movieStore.deleteMovie(id);
+    this.movieStore.deleteMovieEffect(id);
   }
 
   cancel() {
@@ -95,12 +106,9 @@ export class MoviesPage {
       ev.detail.data.trim() !== ''
     ) {
       if (this.itemBeingUpdated) {
-        this.updateMovie({
-          ...this.itemBeingUpdated,
-          name: ev.detail.data.trim(),
-        });
+        this.updateMovie(ev.detail.data.trim());
       } else {
-        this.movieStore.addMovie(ev.detail.data.trim());
+        this.addMovie(ev.detail.data.trim());
       }
     }
 

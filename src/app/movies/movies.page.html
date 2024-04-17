@@ -1,12 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>movies</ion-title>
+    <ion-title>Movies Page</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-list *ngIf="movieStore.movies$ | async as movies">
-    <ion-list-header> Movies </ion-list-header>
+    <ion-list-header>Movies List</ion-list-header>
 
     <ion-item *ngFor="let movie of movies">
       <ion-text> {{ movie.name }} </ion-text>
