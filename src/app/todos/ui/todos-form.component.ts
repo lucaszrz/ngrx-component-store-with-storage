@@ -20,7 +20,8 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone';
 import { OverlayEventDetail } from '@ionic/core/components';
-import { Todo, TodosStore } from '../data-access/todos.store';
+import Todo from '../../shared/interfaces/todo.interface';
+import { TodosStore } from '../data-access/todos.store';
 
 @Component({
   selector: 'app-todos-form',
@@ -83,7 +84,7 @@ export class TodosFormComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   ngOnInit() {
-    this.todoStore.selectedTodo$
+    this.todoStore.selectedItem$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((selectedTodo) => {
         if (selectedTodo) {
@@ -126,7 +127,9 @@ export class TodosFormComponent implements OnInit {
   }
 
   addTodo(title: string) {
-    this.todoStore.addTodoEffect(title);
+    this.todoStore.addItem({
+      name: title,
+    });
   }
 
   updateTodo(title: string) {
@@ -135,7 +138,7 @@ export class TodosFormComponent implements OnInit {
       name: title,
     };
 
-    this.todoStore.updateTodoEffect(todo);
+    this.todoStore.updateItem(todo);
     this.itemBeingUpdated = null;
   }
 }

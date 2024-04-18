@@ -6,18 +6,18 @@ import {
   IonItem,
   IonList,
   IonListHeader,
-  IonModal,
   IonText,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { pencil, trash } from 'ionicons/icons';
-import { Todo, TodosStore } from '../data-access/todos.store';
+import Todo from '../../shared/interfaces/todo.interface';
+import { TodosStore } from '../data-access/todos.store';
 import { TodosFormComponent } from './todos-form.component';
 
 @Component({
   selector: 'app-todos-list',
   template: `
-    <ion-list *ngIf="todoStore.todos$ | async as todos">
+    <ion-list *ngIf="todo$ | async as todos">
       <ion-list-header>Todos List</ion-list-header>
 
       <ion-item *ngFor="let todo of todos">
@@ -48,17 +48,18 @@ export class TodosListComponent {
   @ViewChild(TodosFormComponent) todosFormComponent!: TodosFormComponent;
 
   protected readonly todoStore = inject(TodosStore);
+  protected readonly todo$ = this.todoStore.items$;
 
   constructor() {
     addIcons({ pencil, trash });
   }
 
   selectTodo(todo: Todo) {
-    this.todoStore.selectTodoUpdated(todo);
+    this.todoStore.setSelectedItem(todo);
     this.todosFormComponent?.modal.present();
   }
 
   deleteTodo(id: string) {
-    this.todoStore.deleteTodoEffect(id);
+    this.todoStore.deleteItem(id);
   }
 }
