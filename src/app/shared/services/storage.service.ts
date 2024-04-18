@@ -7,6 +7,7 @@ import { from, Observable, of, switchMap, tap } from 'rxjs';
 })
 export class StorageService {
   public storage = inject(Storage);
+
   private _storage: Storage | null = null;
 
   constructor() {}
@@ -17,8 +18,6 @@ export class StorageService {
     }
   }
 
-  // Create and expose methods that users of this service can
-  // call, for example:
   public set<T>(key: string, value: T) {
     if (!this._storage) {
       from(this.init()).pipe(
@@ -31,8 +30,6 @@ export class StorageService {
     this._storage?.set(key, value);
   }
 
-  // Create and expose methods that users of this service can
-  // call, for example:
   public get<T>(key: string): Observable<T> {
     if (!this._storage) {
       return from(this.init()).pipe(

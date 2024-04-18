@@ -11,8 +11,7 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'movies',
-    loadComponent: () =>
-      import('./movies/movies.page').then((m) => m.MoviesPage),
+    path: 'todos',
+    loadComponent: () => import('./todos/todos.page').then((m) => m.TodosPage),
   },
 ];
