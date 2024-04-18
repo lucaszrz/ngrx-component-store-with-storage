@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { StorageService } from './services/storage.service';
 
@@ -9,14 +9,4 @@ import { StorageService } from './services/storage.service';
   imports: [IonApp, IonRouterOutlet],
   providers: [StorageService],
 })
-export class AppComponent {
-  storageService = inject(StorageService);
-
-  constructor() {
-    this.init().then();
-  }
-
-  async init() {
-    await this.storageService.init();
-  }
-}
+export class AppComponent {}

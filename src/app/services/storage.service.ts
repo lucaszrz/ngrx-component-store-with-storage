@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { from, Observable, of, switchMap, tap } from 'rxjs';
 
@@ -6,11 +6,10 @@ import { from, Observable, of, switchMap, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class StorageService {
+  public storage = inject(Storage);
   private _storage: Storage | null = null;
 
-  constructor(public storage: Storage) {
-    this.init().then();
-  }
+  constructor() {}
 
   async init() {
     if (!this._storage) {
