@@ -1,1 +1,1 @@
-# ngrx-component-store-with-storage
+# NgRx Component Store With Storage

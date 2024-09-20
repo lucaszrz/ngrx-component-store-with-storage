@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import {
   IonButton,
   IonButtons,
+  IonCheckbox,
   IonContent,
   IonHeader,
   IonInput,
@@ -26,18 +27,24 @@ import { TodosStore } from '../data-access/todos.store';
 @Component({
   selector: 'app-todos-form',
   template: `
-    <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+    <ion-modal
+      trigger="open-modal"
+      (willDismiss)="onWillDismiss($event)"
+    >
       <ng-template>
         <ion-header>
           <ion-toolbar>
             <ion-buttons slot="start">
-              <ion-button (click)="cancel()"> Cancel</ion-button>
+              <ion-button (click)="cancel()">Cancel</ion-button>
             </ion-buttons>
 
             <ion-title>Todos</ion-title>
 
             <ion-buttons slot="end">
-              <ion-button (click)="confirm()" [strong]="true">
+              <ion-button
+                (click)="confirm()"
+                [strong]="true"
+              >
                 Confirm
               </ion-button>
             </ion-buttons>
@@ -53,6 +60,16 @@ import { TodosStore } from '../data-access/todos.store';
               placeholder="Todo name"
               [(ngModel)]="name"
             ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-checkbox
+              label-placement="end"
+              justify="start"
+              [(ngModel)]="completed"
+            >
+              Completed?
+            </ion-checkbox>
           </ion-item>
         </ion-content>
       </ng-template>
@@ -71,12 +88,14 @@ import { TodosStore } from '../data-access/todos.store';
     IonButton,
     IonTitle,
     CommonModule,
+    IonCheckbox,
   ],
 })
 export class TodosFormComponent implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
 
-  public name: string = '';
+  public name = '';
+  public completed = false;
   public itemBeingUpdated: Todo | null = null;
 
   protected readonly todoStore = inject(TodosStore);
@@ -98,29 +117,35 @@ export class TodosFormComponent implements OnInit {
   }
 
   confirm() {
-    this.modal.dismiss(this.name, 'confirm').then();
+    this.modal
+      .dismiss({ name: this.name, completed: this.completed }, 'confirm')
+      .then();
   }
 
   onWillDismiss(event: Event) {
-    const ev = event as CustomEvent<OverlayEventDetail<string>>;
+    const ev = event as CustomEvent<
+      OverlayEventDetail<{ name: string; completed: boolean }>
+    >;
 
     if (
       ev.detail.role === 'confirm' &&
       ev.detail.data &&
-      ev.detail.data.trim() !== ''
+      ev.detail.data.name.trim() !== ''
     ) {
       if (this.itemBeingUpdated) {
-        this.updateTodo(ev.detail.data.trim());
+        this.updateTodo(ev.detail.data.name.trim(), ev.detail.data.completed);
       } else {
-        this.addTodo(ev.detail.data.trim());
+        this.addTodo(ev.detail.data.name.trim());
       }
     }
 
     this.name = '';
+    this.completed = false;
   }
 
   setTodoToUpdate(todo: Todo) {
     this.name = todo.name;
+    this.completed = todo.completed;
     this.itemBeingUpdated = todo;
 
     this.modal.present().then();
@@ -129,13 +154,15 @@ export class TodosFormComponent implements OnInit {
   addTodo(title: string) {
     this.todoStore.addItem({
       name: title,
+      completed: false,
     });
   }
 
-  updateTodo(title: string) {
+  updateTodo(name: string, completed: boolean) {
     const todo: Todo = {
       ...(this.itemBeingUpdated as Todo),
-      name: title,
+      name,
+      completed,
     };
 
     this.todoStore.updateItem(todo);

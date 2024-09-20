@@ -37,7 +37,12 @@ import { TodosListComponent } from './ui/todos-list.component';
     <ion-content [fullscreen]="true">
       <app-todos-list></app-todos-list>
 
-      <ion-fab slot="fixed" vertical="bottom" horizontal="end" id="open-modal">
+      <ion-fab
+        slot="fixed"
+        vertical="bottom"
+        horizontal="end"
+        id="open-modal"
+      >
         <ion-fab-button>
           <ion-icon name="add"></ion-icon>
         </ion-fab-button>

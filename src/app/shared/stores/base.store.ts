@@ -78,10 +78,7 @@ export class BaseStore<
       switchMap((item) =>
         this.service.create(item).pipe(
           tap({
-            next: (item) =>
-              this.addItemToState(item).add(() =>
-                console.info('Adding new item to the sync queue!', item),
-              ),
+            next: (item) => this.addItemToState(item),
             error: (e) => console.error(e),
           }),
           catchError(() => EMPTY),
@@ -104,13 +101,7 @@ export class BaseStore<
       switchMap((updatedItem) =>
         this.service.update(updatedItem).pipe(
           tap({
-            next: (items) =>
-              this.updateItemToState(items).add(() =>
-                console.info(
-                  'Adding updated item to the sync queue!',
-                  updatedItem,
-                ),
-              ),
+            next: (items) => this.updateItemToState(items),
             error: (e) => console.error(e),
           }),
           catchError(() => EMPTY),
@@ -133,10 +124,7 @@ export class BaseStore<
       switchMap((id) =>
         this.service.delete(id).pipe(
           tap({
-            next: (items) =>
-              this.deleteItemFromState(items).add(() =>
-                console.info('Adding removed item to the sync queue!', id),
-              ),
+            next: (items) => this.deleteItemFromState(items),
             error: (e) => console.error(e),
           }),
           catchError(() => EMPTY),
