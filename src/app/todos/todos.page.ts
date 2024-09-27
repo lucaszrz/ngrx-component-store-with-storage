@@ -30,7 +30,7 @@ import { TodosListComponent } from './ui/todos-list.component';
   template: `
     <ion-header [translucent]="true">
       <ion-toolbar>
-        <ion-title>Todos Page</ion-title>
+        <ion-title>Task Manager</ion-title>
       </ion-toolbar>
     </ion-header>
 

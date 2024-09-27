@@ -1,5 +1,5 @@
 {
-  "name": "ngrx-crud",
+  "name": "ionic-task-manager",
   "integrations": {
     "capacitor": {}
   },

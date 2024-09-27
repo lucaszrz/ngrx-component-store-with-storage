@@ -23,4 +23,4 @@ bootstrapApplication(AppComponent, {
     Storage,
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
-});
+}).then();

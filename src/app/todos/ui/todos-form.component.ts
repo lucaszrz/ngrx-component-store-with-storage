@@ -35,15 +35,23 @@ import { TodosStore } from '../data-access/todos.store';
         <ion-header>
           <ion-toolbar>
             <ion-buttons slot="start">
-              <ion-button (click)="cancel()">Cancel</ion-button>
+              <ion-button
+                (click)="cancel()"
+                color="medium"
+              >
+                Cancel
+              </ion-button>
             </ion-buttons>
 
-            <ion-title>Todos</ion-title>
+            <ion-title class="ion-text-center">
+              {{ itemBeingUpdated ? 'Edit' : 'Create' }} a task
+            </ion-title>
 
             <ion-buttons slot="end">
               <ion-button
                 (click)="confirm()"
                 [strong]="true"
+                color="primary"
               >
                 Confirm
               </ion-button>
@@ -54,10 +62,10 @@ import { TodosStore } from '../data-access/todos.store';
         <ion-content class="ion-padding">
           <ion-item>
             <ion-input
-              label="Enter the name of the todo"
+              label="Enter the name of the task"
               labelPlacement="stacked"
               type="text"
-              placeholder="Todo name"
+              placeholder="Task name"
               [(ngModel)]="name"
             ></ion-input>
           </ion-item>
@@ -137,6 +145,8 @@ export class TodosFormComponent implements OnInit {
       } else {
         this.addTodo(ev.detail.data.name.trim());
       }
+    } else {
+      this.itemBeingUpdated = null;
     }
 
     this.name = '';
@@ -156,6 +166,8 @@ export class TodosFormComponent implements OnInit {
       name: title,
       completed: false,
     });
+
+    this.itemBeingUpdated = null;
   }
 
   updateTodo(name: string, completed: boolean) {

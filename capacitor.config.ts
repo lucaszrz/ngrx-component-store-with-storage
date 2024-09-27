@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'ngrx-crud',
+  appId: 'br.com.zorzi-devs.ionic-task-manager',
+  appName: 'ionic-task-manager',
   webDir: 'www',
 };
 

@@ -1,8 +1,8 @@
 {
-  "name": "ngrx-crud",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "name": "ionic-task-manager",
+  "version": "1.0.0",
+  "author": "Lucas Zorzi",
+  "homepage": "https://github.com/lucaszrz/ngrx-component-store-with-storage",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -64,5 +64,5 @@
     "prettier": "3.2.5",
     "typescript": "~5.2.2"
   },
-  "description": "An Ionic project"
+  "description": "This project is a simple task manager built using Ionic with Angular. It was created to test the @ngrx/component-store library and demonstrate how state management can be efficiently implemented in an Ionic application."
 }
