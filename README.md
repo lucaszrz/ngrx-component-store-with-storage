@@ -74,27 +74,27 @@ ionic build
 
 ## Using the Application
 
-* Add, edit, and delete tasks using the intuitive UI.
-* The application stores data locally using Ionic storage, so your tasks persist even after refreshing the page or closing the app.
+- Add, edit, and delete tasks using the intuitive UI.
+- The application stores data locally using Ionic storage, so your tasks persist even after refreshing the page or closing the app.
 
 ## Understanding the Component Store Integration
 
 The `@ngrx/component-store` is integrated into the application as the primary state management solution. It helps in:
 
-* Managing the state of tasks efficiently.
-* Reducing direct interaction with the simulated backend.
-* Improving the overall performance and responsiveness of the app.
+- Managing the state of tasks efficiently.
+- Reducing direct interaction with the simulated backend.
+- Improving the overall performance and responsiveness of the app.
 
 ## Why Use `@ngrx/component-store`?
 
-* **Reactive Programming:** The component store allows you to manage state reactively, making the app more responsive and easier to maintain.
-* **Performance:** Reduces unnecessary data fetching by caching state changes locally.
+- **Reactive Programming:** The component store allows you to manage state reactively, making the app more responsive and easier to maintain.
+- **Performance:** Reduces unnecessary data fetching by caching state changes locally.
 
 ## Future Improvements
 
-* Integrate a real backend service to replace the simulated Ionic storage.
-* Add authentication and user management features.
-* Implement more advanced state management features using `@ngrx/component-store`.
+- Integrate a real backend service to replace the simulated Ionic storage.
+- Add authentication and user management features.
+- Implement more advanced state management features using `@ngrx/component-store`.
 
 ## Contributing
 
@@ -103,4 +103,3 @@ Contributions are welcome! Feel free to open an issue or submit a pull request.
 ## License
 
 This project is licensed under the MIT License.
-

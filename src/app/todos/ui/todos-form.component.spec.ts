@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
+import { TodosStore } from '../data-access/todos.store';
 
 import { TodosFormComponent } from './todos-form.component';
 
@@ -9,8 +11,8 @@ describe('TodosFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [TodosFormComponent],
-      imports: [IonicModule.forRoot()],
+      imports: [TodosFormComponent, IonicModule.forRoot()],
+      providers: [TodosStore, Storage],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TodosFormComponent);
